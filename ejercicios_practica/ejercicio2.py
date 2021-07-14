@@ -10,6 +10,7 @@
 import json
 import requests
 
+
 import matplotlib.pyplot as plt
 
 
@@ -45,5 +46,39 @@ if __name__ == '__main__':
     # para imprimir cuantos títulos completó cada usuario
     # y verifique si los primeros usuarios (mirando la página a ojo)
     # los datos recolectados son correctos.
+
+
+    
+    with open('nuevo_json.json','w') as jsonfile:
+        response = requests.get("https://jsonplaceholder.typicode.com/todos")
+        data = response.json()
+        json.dump(data,jsonfile, indent=4)
+
+        #Obteniendo los usuariosId que completaron el campo
+        user_true = [x.get('userId') for x in data if x['completed'] == True ]
+
+        #Obteniendo cuantos titulos completo cada usuarioId
+        count = {x:user_true.count(x) for x in user_true}
+
+
+   
+   
+    #GRAFICO BARRA
+    x = list(count.keys())
+    y = list(count.values())
+    print('\nLista con usuariosId\n',x)
+    print('\nLista con campos completados por usuario\n',y)
+
+
+    fig = plt.figure()
+    ax = fig.add_subplot()
+    ax.bar(x,y)
+    ax.set_facecolor('bisque')
+    ax.set_title('Resumen Informacion')
+    ax.set_ylabel('Titulos Completados')
+    ax.set_xlabel('Usuarios ID')
+
+    plt.autoscale()
+    plt.show()
 
     print("terminamos")

@@ -8,6 +8,7 @@
 # que aparecen en verde con el hashtag "#"
 
 import json
+import requests
 
 
 def serializar():
@@ -33,6 +34,21 @@ def serializar():
     # Observe el archivo y verifique que se almaceno lo deseado
 
 
+    json_data = {"nombre":"joel ",
+                "apellido":"solaligue",
+                "DNI":"41062320",
+                "vestimenta":[{
+                                "prenda":"zapatilla",
+                                "cantidad":"4"},
+                                {"prenda":"remeras",
+                                "cantidad":"12"}]
+                                }
+
+    with open ('mi_json.json','w') as jsonfile:
+        json.dump(json_data, jsonfile)
+        print(json_data)
+
+
 def deserializar():
     print("Funcion que lee un archivo JSON")
     # JSON Deserialize
@@ -44,6 +60,13 @@ def deserializar():
     # el método "dumps" y finalmente imprimir en pantalla el resultado
     # Recuerde utilizar indent=4 para poder observar mejor el resultado
     # en pantalla y comparelo contra el JSON que generó en la función anterior
+
+    with open('mi_json.json','r') as jsonfile:
+        mi_data = json.load(jsonfile)
+        json_string = json.dumps(mi_data, indent=4)
+        print(json_string)
+
+
 
 if __name__ == '__main__':
     print("Bienvenidos a otra clase de Inove con Python")
